@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+//풀이 링크 : https://komas.tistory.com/75
 public class 좋다_1253 {
     public static int N;
     public static int[] arr;
