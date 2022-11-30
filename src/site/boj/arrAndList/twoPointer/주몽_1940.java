@@ -1,4 +1,4 @@
-package site.boj.arrAndList;
+package site.boj.arrAndList.twoPointer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

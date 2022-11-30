@@ -1,4 +1,4 @@
-package site.boj.arrAndList;
+package site.boj.arrAndList.구간_합;
 
 import java.io.BufferedReader;
 import java.io.IOException;
