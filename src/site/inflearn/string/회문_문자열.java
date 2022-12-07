@@ -1,22 +1,21 @@
-package site.inflearn.String;
+package site.inflearn.string;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class 숫자만_추출 {
+public class 회문_문자열 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        String result = "NO";
         String str = br.readLine();
-        String newStr = "";
+        String reverseStr = new StringBuilder(str).reverse().toString();
 
-        for(int i = 0; i < str.length(); i++){
-            if(Character.isDigit(str.charAt(i))){
-                newStr += str.charAt(i);
-            }
+        if(str.equalsIgnoreCase(reverseStr)){
+            result = "YES";
         }
-        int result = Integer.parseInt(newStr);
+
         System.out.println(result);
+
     }
 }
