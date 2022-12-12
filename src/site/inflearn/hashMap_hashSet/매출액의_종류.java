@@ -3,9 +3,7 @@ package site.inflearn.hashMap_hashSet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class 매출액의_종류 {
     public static void main(String[] args) throws IOException {
@@ -13,26 +11,34 @@ public class 매출액의_종류 {
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        int result = 0;
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-        Queue<Integer> slidingWindow = new LinkedList<>();
+        int[] arr = new int[N];
+        ArrayList<Integer> result = new ArrayList<>();
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
         st = new StringTokenizer(br.readLine());
 
-        for(int i = 0; i < K; i++){
-            slidingWindow.add(Integer.parseInt(st.nextToken()));
+        for(int i = 0; i < N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        result = (int) slidingWindow.stream().distinct().count();
-        sb.append(result).append(" ");
-
-        for(int i = 0; i < N - K; i++){
-            slidingWindow.add(Integer.parseInt(st.nextToken()));
-            slidingWindow.poll();
-            result = (int) slidingWindow.stream().distinct().count();
-            sb.append(result).append(" ");
+        for(int i = 0; i < K - 1; i++){
+            hashMap.put(arr[i], hashMap.getOrDefault(arr[i], 0) + 1);
         }
 
-        System.out.println(sb);
+        int lt = 0;
+        for(int i = K - 1; i < N; i++){
+            hashMap.put(arr[i], hashMap.getOrDefault(arr[i], 0) + 1);
+            result.add(hashMap.size());
+            hashMap.put(arr[lt], hashMap.getOrDefault(arr[lt], 0) - 1);
+            if(hashMap.get(arr[lt]) == 0){
+                hashMap.remove(arr[lt]);
+            }
+            lt++;
+        }
+
+        for(int i : result){
+            System.out.print(i + " ");
+        }
     }
 }
