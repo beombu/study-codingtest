@@ -3,52 +3,42 @@ package site.inflearn.hashMap_hashSet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Comparator;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class K번째_큰수 {
-    public static final int SELECT_CARD_NUM = 3;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int result = 0;
+        int result = -1;
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
         int[] arr = new int[N];
         TreeSet<Integer> treeSet = new TreeSet<>(Comparator.reverseOrder());
-        int sum = 0;
+
 
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i = 0; i < SELECT_CARD_NUM; i++){
-            sum += arr[i];
-        }
-        treeSet.add(sum);
-
-        int start = 0;
-        for(int i = SELECT_CARD_NUM; i < N; i++){
-            sum += arr[i];
-            sum -= arr[start++];
-
-            treeSet.add(sum);
+        for (int i = 0; i < N; i++) {
+            for (int j = i + 1; j < N; j++) {
+                for (int l = j + 1; l < N; l++) {
+                    treeSet.add(arr[i] + arr[j] + arr[l]);
+                }
+            }
         }
 
-        for(int i = 1; i <= treeSet.size(); i++){
-            if(treeSet.isEmpty()){
-                result = -1;
+        int cnt = 0;
+        for (int x : treeSet) {
+            cnt++;
+            if (cnt == K) {
+                result = x;
                 break;
             }
-
-            if(i == K){
-                result = treeSet.first();
-                break;
-            }
-
-            treeSet.remove(treeSet.first());
         }
 
         System.out.println(result);
