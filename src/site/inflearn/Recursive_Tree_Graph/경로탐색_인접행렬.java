@@ -48,20 +48,24 @@ public class 경로탐색_인접행렬 {
         checked[1] = true;
         stack.push(1);
 
-//        while (!stack.isEmpty()) {
-//            int v = stack.pop();
-//
-//            for(int i = 1; i <= N; i++){
-//                int linkedNode = graph[v][i];
-//
-//                if(!checked[linkedNode]){
-//                    stack.push(linkedNode);
-//                    checked[linkedNode] = true;
-//                }
-//            }
-//        }
+        while (!stack.isEmpty()) {
+            int v = stack.pop();
 
-        DFS(1);
+            if(v == N){
+                answer++;
+            }else{
+                for(int i = 1; i <= N; i++){
+                    int linkedNode = graph[v][i];
+
+                    if(!checked[linkedNode] && linkedNode == 1){
+                        checked[linkedNode] = true;
+                        stack.push(linkedNode);
+                    }
+                }
+            }
+        }
+
+        //DFS(1);
 
         System.out.println(answer);
 
