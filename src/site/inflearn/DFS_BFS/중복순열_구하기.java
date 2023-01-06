@@ -10,13 +10,13 @@ public class 중복순열_구하기 {
     static int M;
     static int[] pm;
 
-    public static void DFS(int L){
-        if(L == M){
-            for(int a : pm){
+    public static void DFS(int L) {
+        if (L == M) {
+            for (int a : pm) {
                 System.out.print(a + " ");
             }
-        }else {
-            for(int i = 1; i <= N; i++){
+        } else {
+            for (int i = 1; i <= N; i++) {
                 pm[L] = i;
                 DFS(L + 1);
             }
