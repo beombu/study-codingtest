@@ -10,14 +10,14 @@ public class 바둑이_승차 {
     static int N;
     static int C;
 
-    public static void DFS(int idx, int sum, int[] arr){
-        if(sum > C){
+    public static void DFS(int idx, int sum, int[] arr) {
+        if (sum > C) {
             return;
         }
 
-        if(idx == N){//합이 C를 넘지 않으면
+        if (idx == N) {//합이 C를 넘지 않으면
             result = Math.max(result, sum);
-        }else{
+        } else {
             DFS(idx + 1, sum + arr[idx], arr);
             DFS(idx + 1, sum, arr);
         }
