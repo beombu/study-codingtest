@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-class Problem{
+class Problem {
     private int score;
     private int time;
 
@@ -28,14 +28,14 @@ public class 최대점수_구하기 {
     static int M;
     static int result = 0;
 
-    public static void DFS(int idx, int timeSum, int scoreSum, ArrayList<Problem> arrayList){
-        if(timeSum > M){
+    public static void DFS(int idx, int timeSum, int scoreSum, ArrayList<Problem> arrayList) {
+        if (timeSum > M) {
             return;
         }
 
-        if(idx == arrayList.size()){
+        if (idx == arrayList.size()) {
             result = Math.max(result, scoreSum);
-        }else{
+        } else {
             DFS(idx + 1, timeSum + arrayList.get(idx).getTime(), scoreSum + arrayList.get(idx).getScore(), arrayList);
             DFS(idx + 1, timeSum, scoreSum, arrayList);
         }
@@ -49,7 +49,7 @@ public class 최대점수_구하기 {
         M = Integer.parseInt(st.nextToken());//제한 시간
         ArrayList<Problem> arrayList = new ArrayList<>();
 
-        for(int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int t = Integer.parseInt(st.nextToken());
