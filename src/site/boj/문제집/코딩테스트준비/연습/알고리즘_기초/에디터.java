@@ -3,14 +3,12 @@ package site.boj.문제집.코딩테스트준비.연습.알고리즘_기초;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 public class 에디터 {
-    static List<Character> editor = new LinkedList<>();
-    static int cursor;
+    static Stack<Character> leftStack = new Stack<>();
+    static Stack<Character> rightStack = new Stack<>();
     static String str = "";
 
     public static void main(String[] args) throws IOException {
@@ -18,9 +16,8 @@ public class 에디터 {
         StringTokenizer st;
         str = br.readLine();
         for (Character c : str.toCharArray()) {
-            editor.add(c);
+            leftStack.push(c);
         }
-        cursor = str.length();
 
         int test_case = Integer.parseInt(br.readLine());
 
@@ -28,52 +25,43 @@ public class 에디터 {
             st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
 
-            adaptCommand(st, command);
-        }
-
-        System.out.println(editor.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining()));
-    }
-
-    private static void adaptCommand(StringTokenizer st, String command) {
-        if (command.equals("P")) {
-            String s = st.nextToken();
-            AddStr(s.charAt(0));
-        } else {
-            if (command.equals("L")) {
+            if(command.equals("L")){
                 moveLeft();
-            } else if (command.equals("D")) {
+            }else if (command.equals("D")){
                 moveRight();
-            } else if (command.equals("B")) {
+            }else if (command.equals("B")){
                 deleteStr();
+            }else if (command.equals("P")){
+                String s = st.nextToken();
+                AddStr(s.charAt(0));
             }
         }
+
+        while(!leftStack.isEmpty()){
+            rightStack.push(leftStack.pop());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while(!rightStack.isEmpty()){
+            sb.append(rightStack.pop());
+        }
+
+        System.out.println(sb);
     }
 
     private static void moveLeft() {
-        if (cursor == 0) {
-            return;
-        }
-        cursor--;
+        if(!leftStack.empty()) rightStack.push(leftStack.pop());
     }
 
     private static void moveRight() {
-        if (cursor == editor.size()) {
-            return;
-        }
-        cursor++;
+        if(!rightStack.empty()) leftStack.push(rightStack.pop());
     }
 
     private static void deleteStr() {
-        if (cursor == 0) {
-            return;
-        }
-
-        editor.remove(--cursor);
+        if(!leftStack.empty()) leftStack.pop();
     }
 
     private static void AddStr(char ch) {
-        editor.add(cursor++, ch);
+        leftStack.push(ch);
     }
 }
