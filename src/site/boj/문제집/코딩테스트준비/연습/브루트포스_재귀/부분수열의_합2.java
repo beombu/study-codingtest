@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 public class 부분수열의_합2 {
     static int S;
     static int[] arr;
-    static int[] result = new int[100001];
+    static boolean[] result = new boolean[20*100000 + 10];
     static int answer = 0;
 
     public static void main(String[] args) throws IOException {
@@ -26,7 +26,7 @@ public class 부분수열의_합2 {
         DFS(0, 0);
 
         for (int i = 0; i < result.length; i++) {
-            if (result[i] == 0) {
+            if (!result[i]) {
                 answer = i;
                 break;
             }
@@ -37,7 +37,7 @@ public class 부분수열의_합2 {
 
     private static void DFS(int depth, int sum) {
         if (depth == S) {
-            result[sum] = 1;
+            result[sum] = true;
             return;
         }
 
