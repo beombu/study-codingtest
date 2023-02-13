@@ -1,4 +1,4 @@
-package site.boj.문제집.코딩테스트준비.연습.알고리즘_기초;
+package site.boj.문제집.알고리즘_기초.자료구조;
 
 import java.io.BufferedReader;
 import java.io.IOException;
