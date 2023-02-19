@@ -3,13 +3,13 @@ package site.boj.문제집.알고리즘_기초.자료구조;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class 오큰수 {
+    static Stack<Integer> stack = new Stack<>();
     static int N;
-    static List<Integer> A = new ArrayList<>();
+    static int[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,28 +17,27 @@ public class 오큰수 {
         N = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
+        arr = new int[N];
 
         for (int i = 0; i < N; i++) {
-            A.add(Integer.parseInt(st.nextToken()));
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < A.size(); i++) {
-            int now = A.get(i);//현재 숫자
-            int rightLargeNum = 0;
-            int idx = i;
-
-            while(now > rightLargeNum){
-                if(idx == A.size() - 1){
-                    rightLargeNum = -1;
-                    break;
-                }
-
-                rightLargeNum = A.get(++idx);
+        for (int i = 0; i < N; i++) {
+            while (!stack.isEmpty() && arr[stack.peek()] < arr[i]) {
+                arr[stack.pop()] = arr[i];
             }
-
-            sb.append(rightLargeNum).append(" ");
+            stack.push(i);
         }
 
+        while (!stack.isEmpty()) {
+            arr[stack.pop()] = -1;
+        }
+
+        for (int i : arr) {
+            sb.append(i).append(" ");
+        }
         System.out.println(sb);
     }
 }
+
