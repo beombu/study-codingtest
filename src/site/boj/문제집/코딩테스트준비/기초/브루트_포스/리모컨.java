@@ -3,70 +3,57 @@ package site.boj.문제집.코딩테스트준비.기초.브루트_포스;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class 리모컨 {
-    public static int chanel = 100;
-    public static int N;
-    public static int M;
-    public static List<Integer> button = new LinkedList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
-    public static int max = Integer.MAX_VALUE;
-    public static int count = 0;
+    static boolean[] broken;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        String strN = br.readLine();
-        String[] arrN = strN.split("");
-        N = Integer.parseInt(strN);
-        M = Integer.parseInt(br.readLine());
+        int N = Integer.parseInt(br.readLine());
+        int M = Integer.parseInt(br.readLine());
+        broken = new boolean[10];
+
         if (M != 0) {
             st = new StringTokenizer(br.readLine());
 
             for (int i = 0; i < M; i++) {
-                Integer brokenButton = Integer.parseInt(st.nextToken());
-                button.remove(brokenButton);
+                int num = Integer.parseInt(st.nextToken());
+                broken[num] = true;
             }
         }
 
-        if (N == chanel) {
-            System.out.println(0);
-            return;
+        int min_cnt = Math.abs(N - 100);
+        for (int i = 0; i <= 1000000; i++) {
+            int len = check(i);
+            if (len > 0) {
+                int press = Math.abs(N - i);
+                min_cnt = Math.min(min_cnt, len + press);
+            }
         }
 
-        String changeNumberButton = findChangeNumberButton(arrN);
-        count += Math.abs(N - Integer.parseInt(changeNumberButton));
-
-        System.out.println(count);
+        System.out.println(min_cnt);
     }
 
-    private static String findChangeNumberButton(String[] arrN) {
-        StringBuilder changeNumberButton = new StringBuilder();
-        for (int i = 0; i < arrN.length; i++) {
-            String nowNum = arrN[i];
-
-            if (button.contains(Integer.parseInt(nowNum))) {
-                changeNumberButton.append(nowNum);
+    static int check(int n) {
+        if (n == 0) {
+            if (broken[0]) {
+                return 0;
             } else {
-                int nearNum = 0;
-
-                for (int j = 0; j < button.size(); j++) {
-                    if (Math.abs(Integer.parseInt(nowNum) - button.get(j)) < max) {
-                        max = Math.abs(Integer.parseInt(nowNum) - button.get(j));
-                        nearNum = button.get(j);
-                    }
-                }
-
-                changeNumberButton.append(nearNum);
+                return 1;
             }
-            System.out.println(i + "번째 " + changeNumberButton);
-            count++;
         }
 
-        return changeNumberButton.toString();
+        int len = 0;
+        while (n > 0) {
+            if (broken[n % 10]) {
+                return 0;
+            }
+            n /= 10;
+            len++;
+        }
+        return len;
     }
 }
