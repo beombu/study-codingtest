@@ -9,7 +9,7 @@ public class _2xN타일2 {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 
-		int[] dp = new int[N + 1];
+		int[] dp = new int[1001];
 		dp[0] = dp[1] = 1;
 		dp[2] = 3;
 
