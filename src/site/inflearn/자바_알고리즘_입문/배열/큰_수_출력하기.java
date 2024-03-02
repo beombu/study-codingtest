@@ -1,4 +1,4 @@
-package site.programmers;
+package site.inflearn.자바_알고리즘_입문.배열;
 
 import java.io.BufferedReader;
 import java.io.IOException;
