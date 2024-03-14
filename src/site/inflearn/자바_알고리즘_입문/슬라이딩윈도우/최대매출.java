@@ -13,33 +13,23 @@ public class 최대매출 {
 		int N = Integer.parseInt(st.nextToken());
 		int K = Integer.parseInt(st.nextToken());
 
-		int[] arr = new int[N];
-
 		st = new StringTokenizer(br.readLine());
+		int[] arr = new int[N];
 
 		for (int i = 0; i < N; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		int max = 0;
-		int lt = 0;
-		int rt = K;
-		int temp = 0;
+		int max = Integer.MIN_VALUE;
 
-		for (int i = 0; i < K; i++) {
-			temp += arr[i];
-		}
+		for (int i = 0; i < N - K + 1; i++) {
+			int value = 0;
 
-		while (rt < N) {
-			if (temp > max) {
-				max = temp;
+			for (int j = i; j < i + K; j++) {
+				value += arr[j];
 			}
 
-			temp = temp + arr[rt] - arr[lt];
-
-			rt++;
-			lt++;
-
+			max = Math.max(max, value);
 		}
 
 		System.out.println(max);
