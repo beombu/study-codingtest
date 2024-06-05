@@ -1,14 +1,13 @@
 package site.programmers.other;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class 두_개_뽑아서_더하기 {
     public int[] solution(int[] numbers) {
-        HashSet<Integer> set = new HashSet<>();
-        int[] answer;
+        //add 할때 정렬
+        Set<Integer> set = new TreeSet<>();
 
         for(int i = 0 ; i < numbers.length ; i++) {
             for(int j = i + 1; j < numbers.length; j++) {
@@ -16,14 +15,14 @@ public class 두_개_뽑아서_더하기 {
             }
         }
 
-        List<Integer> list = new ArrayList<>();
+        int[] answer = new int[set.size()];
+        int index = 0;
 
-        for (int i : set) {
-            list.add(i);
+        Iterator<Integer> iterator = set.iterator();
+        while ((iterator.hasNext())) {
+            answer[index] = iterator.next();
+            index++;
         }
-
-        Collections.sort(list);
-        answer = list.stream().mapToInt(i -> i).toArray();
 
         return answer;
     }
